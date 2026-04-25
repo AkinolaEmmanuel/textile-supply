@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+
+  --color-indigo-primary: #1a237e;
+  --color-indigo-secondary: #283593;
+  --color-teal-accent: #00796b;
+  --color-earth-warm: #8d6e63;
+  --color-earth-dark: #4e342e;
+  --color-cream-bg: #fffbf2;
+
+  --color-primary: var(--color-indigo-primary);
+  --color-primary-foreground: white;
+  --color-secondary: var(--color-teal-accent);
+  --color-secondary-foreground: white;
+  --color-accent: var(--color-earth-warm);
+  --color-accent-foreground: white;
+  --color-background: var(--color-cream-bg);
+  --color-foreground: #1c1917;
+
+  --color-border: #e2e8f0;
+  --color-input: #e2e8f0;
+  --color-ring: var(--color-indigo-primary);
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+  --color-popover: white;
+  --color-popover-foreground: #1c1917;
+  --color-card: white;
+  --color-card-foreground: #1c1917;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: white;
+
+  --radius-lg: 0.75rem;
+  --radius-md: calc(var(--radius-lg) - 2px);
+  --radius-sm: calc(var(--radius-lg) - 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-tight;
+  }
+}
