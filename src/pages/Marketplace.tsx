@@ -36,7 +36,7 @@ export default function Marketplace() {
   const resetFilters = () => setSearchParams(new URLSearchParams())
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="w-full px-6 md:px-32 py-8">
       <div className="flex flex-col gap-8">
         {/* Header Area */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">

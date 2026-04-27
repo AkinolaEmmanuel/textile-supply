@@ -1,75 +1,94 @@
 import { Link } from "react-router-dom"
-import { ShoppingBag, User, Menu, X } from "lucide-react"
 import { useState } from "react"
+import { ShoppingBag, User, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/hooks/useAuth"
+import { useCart } from "@/hooks/useCart"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const { user, isAuthenticated, logout } = useAuth()
+  const { totalItems } = useCart()
+  const itemCount = totalItems()
 
   return (
-    <nav className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-2">
-          <span className="text-2xl font-display font-black text-primary italic lowercase tracking-tight">fab</span>
+    <nav className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
+      <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+        <Link to="/" className="text-3xl font-display font-black text-primary lowercase tracking-tighter">
+          <span className="italic">fab</span>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <Link to="/marketplace" className="hover:text-primary transition-colors">Marketplace</Link>
-          <Link to="/how-it-works" className="hover:text-primary transition-colors">How it Works</Link>
-          {isAuthenticated && user?.role === "PRODUCER" && (
-            <Link to="/dashboard" className="hover:text-primary transition-colors">Dashboard</Link>
-          )}
-        </div>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-8">
+          <Link to="/marketplace" className="text-sm font-bold text-slate-600 hover:text-primary transition-colors uppercase tracking-widest">
+            Marketplace
+          </Link>
 
-        <div className="hidden md:flex items-center gap-4">
+          <Link to="/cart" className="relative group">
+            <ShoppingBag className="h-6 w-6 text-slate-600 group-hover:text-primary transition-colors" />
+            {itemCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-secondary text-white text-[10px] font-black h-5 w-5 rounded-full flex items-center justify-center animate-in zoom-in duration-300">
+                {itemCount}
+              </span>
+            )}
+          </Link>
+
           {isAuthenticated ? (
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm" onClick={logout}>Logout</Button>
-              <Button size="sm" asChild>
-                <Link to={user?.role === "PRODUCER" ? "/dashboard" : "/profile"}>
+              <Button variant="ghost" className="font-bold text-slate-600" asChild>
+                <Link to="/dashboard">
                   <User className="mr-2 h-4 w-4" />
-                  Account
+                  {user?.fullName.split(' ')[0]}
                 </Link>
               </Button>
+              <Button onClick={logout} variant="outline" size="sm">Logout</Button>
             </div>
           ) : (
-            <>
-              <Button variant="ghost" size="sm" asChild>
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" className="font-bold text-slate-600" asChild>
                 <Link to="/login">Login</Link>
               </Button>
-              <Button size="sm" asChild>
+              <Button className="font-bold shadow-lg shadow-primary/20" asChild>
                 <Link to="/register">Register</Link>
               </Button>
-            </>
+            </div>
           )}
         </div>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+        <button
+          className="md:hidden p-2 text-slate-600"
+          onClick={() => setIsOpen(!isOpen)}
+        >
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
 
-      {/* Mobile Nav */}
+      {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden border-t bg-background p-4 space-y-4 animate-in slide-in-from-top">
-          <Link to="/marketplace" className="block text-lg font-medium">Marketplace</Link>
-          <Link to="/how-it-works" className="block text-lg font-medium">How it Works</Link>
-          <div className="pt-4 flex flex-col gap-2">
-            {!isAuthenticated ? (
+        <div className="md:hidden border-t bg-white p-4 space-y-4 animate-in slide-in-from-top">
+          <Link
+            to="/marketplace"
+            className="block text-lg font-bold text-slate-600"
+            onClick={() => setIsOpen(false)}
+          >
+            Marketplace
+          </Link>
+          <div className="flex flex-col gap-2 pt-2">
+            {isAuthenticated ? (
               <>
-                <Button variant="outline" asChild className="w-full">
-                  <Link to="/login">Login</Link>
-                </Button>
-                <Button asChild className="w-full">
-                  <Link to="/register">Register</Link>
-                </Button>
+                <Link to="/dashboard" className="block py-2 font-bold" onClick={() => setIsOpen(false)}>Profile</Link>
+                <Button onClick={() => { logout(); setIsOpen(false); }} variant="outline" className="w-full">Logout</Button>
               </>
             ) : (
-              <Button variant="outline" onClick={logout} className="w-full">Logout</Button>
+              <>
+                <Button variant="ghost" className="w-full justify-start font-bold" asChild>
+                  <Link to="/login" onClick={() => setIsOpen(false)}>Login</Link>
+                </Button>
+                <Button className="w-full font-bold" asChild>
+                  <Link to="/register" onClick={() => setIsOpen(false)}>Register</Link>
+                </Button>
+              </>
             )}
           </div>
         </div>

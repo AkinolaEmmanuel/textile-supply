@@ -25,15 +25,15 @@ function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/60 to-transparent" />
         </div>
 
-        <div className="w-full px-32 z-10">
+        <div className="w-full px-6 md:px-32 z-10">
           <div className="max-w-2xl space-y-8 animate-in fade-in slide-in-from-left duration-1000">
             <Badge className="bg-secondary text-white border-none px-4 py-1.5 uppercase tracking-widest text-[10px]">
               The #1 Textile Marketplace in Nigeria
             </Badge>
-            <h1 className="text-5xl md:text-7xl font-display font-extrabold text-white leading-tight">
-              Find the Perfect <span className="text-secondary italic">Fabric</span> on <span className="italic">fab</span>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-display font-extrabold text-white leading-tight">
+              Find the perfect <span className="text-secondary italic">Fabric</span> on <span className="italic">fab</span>
             </h1>
-            <p className="text-xl text-slate-300 leading-relaxed">
+            <p className="text-lg md:text-xl text-slate-300 leading-relaxed">
               Connecting fashion designers with verified Nigerian producers and suppliers of Ankara, Adire, Lace, and more. Authentic textiles, directly from the source.
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
@@ -49,13 +49,13 @@ function Home() {
       </div>
 
       {/* Browse by Fabric Category */}
-      <div className="w-full px-32 py-20 space-y-12 bg-white">
-        <div className="flex justify-between items-end">
+      <div className="w-full px-6 md:px-32 py-20 space-y-12 bg-white">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
           <div className="space-y-2">
-            <h2 className="text-4xl font-display font-black text-primary italic lowercase tracking-tight">fabric categories</h2>
-            <p className="text-muted-foreground">Discover the richness of Nigerian textiles through our curated collections.</p>
+            <h2 className="text-3xl md:text-4xl font-display font-black text-primary italic lowercase tracking-tight">fabric categories</h2>
+            <p className="text-muted-foreground max-w-xl">Discover the richness of Nigerian textiles through our curated collections.</p>
           </div>
-          <Button variant="link" asChild className="text-primary font-bold">
+          <Button variant="link" asChild className="text-primary font-bold p-0">
             <Link to="/marketplace">View All Fabrics →</Link>
           </Button>
         </div>
@@ -71,14 +71,14 @@ function Home() {
             { name: "Chiffon", img: "/fabrics/chiffon.png", desc: "Lightweight & flowing" },
             { name: "Brocade", img: "/fabrics/silk.png", desc: "Intricate woven patterns" },
           ].map((fabric) => (
-            <Link 
+            <Link
               key={fabric.name}
               to={`/marketplace?fabric=${fabric.name}`}
               className="group relative h-72 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500"
             >
-              <img 
-                src={fabric.img} 
-                alt={fabric.name} 
+              <img
+                src={fabric.img}
+                alt={fabric.name}
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
@@ -94,33 +94,33 @@ function Home() {
       </div>
 
       {/* Browse by Location */}
-      <div className="w-full px-32 py-24 space-y-12 bg-slate-50">
-        <div className="flex justify-between items-end">
+      <div className="w-full px-6 md:px-32 py-24 space-y-12 bg-slate-50">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
           <div className="space-y-2">
-            <h2 className="text-4xl font-display font-black text-primary italic lowercase tracking-tight">find by location</h2>
-            <p className="text-muted-foreground">Connect with verified producers in your city for faster delivery.</p>
+            <h2 className="text-3xl md:text-4xl font-display font-black text-primary italic lowercase tracking-tight">find by location</h2>
+            <p className="text-muted-foreground max-w-xl">Connect with verified producers in your city for faster delivery.</p>
           </div>
-          <Button variant="link" asChild className="text-primary font-bold">
+          <Button variant="link" asChild className="text-primary font-bold p-0">
             <Link to="/marketplace">View All Cities →</Link>
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
           {[
             { name: "Lagos", img: "/fabrics/lagos.png", state: "Lagos" },
-            { name: "Abuja", img: "/fabrics/abuja.png", state: "FCT" },
+            { name: "Abuja", img: "/fabrics/abuja.png", state: "Federal Capital Territory" },
             { name: "Kano", img: "/fabrics/kano.png", state: "Kano" },
             { name: "Ibadan", img: "/fabrics/ibadan.png", state: "Oyo" },
             { name: "Rivers", img: "/fabrics/rivers.png", state: "Rivers" },
           ].map((city) => (
-            <Link 
+            <Link
               key={city.name}
               to={`/marketplace?state=${city.state}`}
-              className="group relative h-96 rounded-full overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 border-4 border-white"
+              className="group relative aspect-square sm:h-96 rounded-full overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 border-4 border-white"
             >
-              <img 
-                src={city.img} 
-                alt={city.name} 
+              <img
+                src={city.img}
+                alt={city.name}
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-125 transition-transform duration-1000 grayscale group-hover:grayscale-0"
               />
               <div className="absolute inset-0 bg-primary/40 group-hover:bg-transparent transition-colors duration-500" />
@@ -138,15 +138,20 @@ function Home() {
   )
 }
 
+import { LoginForm } from "@/components/forms/LoginForm"
+import Dashboard from "@/pages/Dashboard"
+import CartPage from "@/pages/CartPage"
+import { useAuth } from "@/hooks/useAuth"
+
 // Auth Page Wrapper
 function AuthPage({ children, title }: { children: React.ReactNode, title: string }) {
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 bg-slate-50">
-      <Card className="w-full max-w-lg shadow-xl border-none">
-        <CardHeader className="text-center pb-2">
-          <CardTitle className="text-3xl font-display font-bold">{title}</CardTitle>
+    <div className="min-h-[80vh] flex items-center justify-center py-12 px-6 md:px-32 bg-slate-50">
+      <Card className="w-full max-w-lg shadow-xl border-none rounded-3xl overflow-hidden">
+        <CardHeader className="text-center pb-2 pt-8">
+          <CardTitle className="text-3xl font-display font-black text-primary italic lowercase tracking-tight">{title}</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-8 pt-4">
           {children}
         </CardContent>
       </Card>
@@ -155,6 +160,8 @@ function AuthPage({ children, title }: { children: React.ReactNode, title: strin
 }
 
 function App() {
+  const { isAuthenticated } = useAuth()
+
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
@@ -165,14 +172,16 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/marketplace" element={<Marketplace />} />
               <Route path="/producer/:id" element={<ProducerProfile />} />
+              <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />} />
+              <Route path="/cart" element={<CartPage />} />
               <Route path="/register" element={
-                <AuthPage title="Create Account">
+                <AuthPage title="create account">
                   <RegisterForm />
                 </AuthPage>
               } />
               <Route path="/login" element={
-                <AuthPage title="Welcome Back">
-                  <div className="text-center p-8 text-muted-foreground italic">Login form coming soon...</div>
+                <AuthPage title="welcome back">
+                  <LoginForm />
                 </AuthPage>
               } />
               <Route path="*" element={<Navigate to="/" replace />} />
